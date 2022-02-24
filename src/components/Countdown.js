@@ -39,6 +39,8 @@ const Countdown = ()=>{
   })
 
   const [allGames, setAllGames] = useState([countdown1,countdown2,countdown3])
+
+  const arrayOfFunctions = [setCountDown1,setCountDown2,setCountDown3]
  
 
   function useInterval(callback, delay) {
@@ -81,9 +83,11 @@ const Countdown = ()=>{
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
     
       var game = "countdown" + (i + 1)
-      var functi = "setCountdown" + (i + 1)
 
+      
+      arrayOfFunctions[i]({...game, countdownDays: days, countdownHours: hours, countdownMinutes: minutes, countdownSeconds: seconds, countdownDistance: distance})
       // console.log(game)
+      // console.log("countdown"+(i+1)+": "+ game)
 
       // var func = new Function(
       //   "return function " + game + '(){ setCountDown{i}({...countdown1 , countdownDays: days, countdownHours: hours, countdownMinutes: minutes, countdownSeconds: seconds, countdownDistance: distance}) }'
