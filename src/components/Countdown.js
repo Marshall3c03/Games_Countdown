@@ -9,17 +9,36 @@ const Countdown = ()=>{
     countdownMinutes: 0,
     countdownSeconds: 0,
     countdownDistance: 0,
+    releaseDate: "March 1, 2022 00:00:01",
     delay: 1000,
     isRunning: true
   })
 
-  // const [countdownDays, setCountdownDays] = useState(0)
-  // const [countdownHours, setCountdownHours] = useState(0)
-  // const [countdownMinutes, setCountdownMinutes] = useState(0)
-  // const [countdownSeconds, setCountdownSeconds] = useState(0)
-  // const [countdownDistance, setCountdownDistance] = useState(0)
-  // const [delay, setDelay] = useState(1000);
-  // const [isRunning, setIsRunning] = useState(true);
+  const [countdown2, setCountDown2] = useState({
+    title: "Babylon's Fall",
+    countdownDays: 0,
+    countdownHours: 0,
+    countdownMinutes: 0,
+    countdownSeconds: 0,
+    countdownDistance: 0,
+    releaseDate: "March 3, 2022 00:00:01",
+    delay: 1000,
+    isRunning: true
+  })
+
+  const [countdown3, setCountDown3] = useState({
+    title: "Gran Turismo 7",
+    countdownDays: 0,
+    countdownHours: 0,
+    countdownMinutes: 0,
+    countdownSeconds: 0,
+    countdownDistance: 0,
+    releaseDate: "March 4, 2022 00:00:01",
+    delay: 1000,
+    isRunning: true
+  })
+
+  const [allGames, setAllGames] = useState([countdown1,countdown2,countdown3])
  
 
   function useInterval(callback, delay) {
@@ -45,14 +64,38 @@ const Countdown = ()=>{
   // Update the count down every 1 second
   useInterval(() => {
 
-    // Set the date we're counting down to
-    var countDownDate = new Date("March 1, 2021 00:00:01").getTime();
-
     // Get today's date and time
     var now = new Date().getTime();
+
+    // Set the date we're counting down to
+    var countDownDate1 = new Date("March 1, 2022 00:00:01").getTime();
+    var countDownDate2 = new Date("March 3, 2021 00:00:01").getTime();
+    var countDownDate3 = new Date("March 4, 2021 00:00:01").getTime();
+
+    for (let i = 0; i < allGames.length ;i++){
+      var distance = allGames[i].releaseDate
       
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+      var game = "countdown" + (i + 1)
+      var functi = "setCountdown" + (i + 1)
+
+      // console.log(game)
+
+      // var func = new Function(
+      //   "return function " + game + '(){ setCountDown{i}({...countdown1 , countdownDays: days, countdownHours: hours, countdownMinutes: minutes, countdownSeconds: seconds, countdownDistance: distance}) }'
+      // )();
+
+      // func()
+      
+
+      // functi({...countdown1, countdownDays: days, countdownHours: hours, countdownMinutes: minutes, countdownSeconds: seconds, countdownDistance: distance});
+    }
     // Find the distance between now and the count down date
-    var distance = countDownDate - now;
+    var distance = countDownDate1 - now;
       
     // Time calculations for days, hours, minutes and seconds
     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -61,30 +104,24 @@ const Countdown = ()=>{
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     //Setting state for all data
-    setCountDown1({...countdown1,
-      countdownDays: days,
-      countdownHours: hours,
-      countdownMinutes: minutes,
-      countdownSeconds: seconds,
-      countdownDistance: distance
-    });
+    setCountDown1({...countdown1, countdownDays: days, countdownHours: hours, countdownMinutes: minutes, countdownSeconds: seconds, countdownDistance: distance});
 
     // If the count down is over, write some text 
     if (distance <= 0) {
-      setCountDown1({...countdown1,
-        delay: 0,
-        isRunning: false,
-        countdownDistance: -1
-      })
+      setCountDown1({...countdown1, delay: 0, isRunning: false, countdownDistance: -1})
     }
-
   }, countdown1.isRunning ? countdown1.delay : null);
+
+  const handleclick = ()=>{
+    console.log(allGames[0].countdownDays)
+  }
 
   return(
     <div>
-      <p>I am a countdown</p>
-      {countdown1.countdownDistance < 0 ? <p>Sorry that's Expired</p> : (<p>{countdown1.countdownDays}d {countdown1.countdownHours}h {countdown1.countdownMinutes}m {countdown1.countdownSeconds}s</p>)}
-      {/* { distance < 0 <p>{countdownDays}d {countdownHours}h {countdownMinutes}m {countdownSeconds}s</p> ? } */}
+      <button onClick={handleclick}>Click Me</button>
+      {countdown1.countdownDistance < 0 ? <p>Sorry that's Expired</p> : (<p>{countdown1.title}: {countdown1.countdownDays}d {countdown1.countdownHours}h {countdown1.countdownMinutes}m {countdown1.countdownSeconds}s</p>)}
+      {countdown2.countdownDistance < 0 ? <p>Sorry that's Expired</p> : (<p>{countdown2.title}: {countdown2.countdownDays}d {countdown2.countdownHours}h {countdown2.countdownMinutes}m {countdown2.countdownSeconds}s</p>)}
+      {countdown3.countdownDistance < 0 ? <p>Sorry that's Expired</p> : (<p>{countdown3.title}: {countdown3.countdownDays}d {countdown3.countdownHours}h {countdown3.countdownMinutes}m {countdown3.countdownSeconds}s</p>)}
     </div>
   )
 }
