@@ -20,6 +20,60 @@ const Countdown = ()=>{
       releaseDate: "March 4, 2022 00:00:01",
       delay: 1000,
       isRunning: true
+    },
+    [nanoid()]: {
+      title: "WWE 2k22",
+      releaseDate: "March 11, 2022 00:00:01",
+      delay: 1000,
+      isRunning: true
+    },
+    [nanoid()]: {
+      title: "Grand Theft Auto V",
+      releaseDate: "March 15, 2022 00:00:01",
+      delay: 1000,
+      isRunning: true
+    },
+    [nanoid()]: {
+      title: "GhostWire: Tokyo",
+      releaseDate: "March 25, 2022 00:00:01",
+      delay: 1000,
+      isRunning: true
+    },
+    [nanoid()]: {
+      title: "Tiny Tina's Wonderlands",
+      releaseDate: "March 25, 2022 00:00:01",
+      delay: 1000,
+      isRunning: true
+    },
+    [nanoid()]: {
+      title: "LEGO Star Wars: The Skywalker Saga",
+      releaseDate: "April 5, 2022 00:00:01",
+      delay: 1000,
+      isRunning: true
+    },
+    [nanoid()]: {
+      title: "LEGO Star Wars: The Skywalker Saga",
+      releaseDate: "April 5, 2022 00:00:01",
+      delay: 1000,
+      isRunning: true
+    },
+    [nanoid()]: {
+      title: "Saints Row",
+      releaseDate: "August 23, 2022 00:00:01",
+      delay: 1000,
+      isRunning: true
+    },
+    [nanoid()]: {
+      title: "Test Drive Unlimited Solar Crown",
+      releaseDate: "September 22, 2022 00:00:01",
+      delay: 1000,
+      isRunning: true
+    },
+    [nanoid()]: {
+      title: "Starfield",
+      releaseDate: "April 5, 2022 00:00:01",
+      delay: 1000,
+      isRunning: true
     }
   };
   const [allGames, setAllGames] = useState(listOfTitles);
