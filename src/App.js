@@ -7,9 +7,9 @@ function App() {
     <div className="App">
       <div className="App-header">
         
-        <p>
+        <h1>
           Games CountDown
-        </p>
+        </h1>
         <Countdown/>
       </div>
     </div>

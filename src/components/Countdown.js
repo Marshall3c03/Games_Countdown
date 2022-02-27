@@ -132,13 +132,10 @@ const Countdown = ()=>{
     setAllGames(resolvedGames);  
   }, 1000);
 
-  const handleclick = ()=>{
-    console.log(allGames)
-  }
+ 
 
   return(
     <div>
-      <button onClick={handleclick}>Click Me</button>
       {
         Object.keys(allGames).map(gameId => {
           const game = allGames[gameId];
