@@ -1,46 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { nanoid } from 'nanoid';
 
-const listOfTitles = [
-  {
-    id: nanoid(),
-    title: "Elex II",
-    countdownDays: 0,
-    countdownHours: 0,
-    countdownMinutes: 0,
-    countdownSeconds: 0,
-    countdownDistance: 0,
-    releaseDate: "March 1, 2022 00:00:01",
-    delay: 1000,
-    isRunning: true
-  },
-  {
-    id: nanoid(),
-    title: "Babylon's Fall",
-    countdownDays: 0,
-    countdownHours: 0,
-    countdownMinutes: 0,
-    countdownSeconds: 0,
-    countdownDistance: 0,
-    releaseDate: "March 3, 2022 00:00:01",
-    delay: 1000,
-    isRunning: true
-  },
-  {
-    id: nanoid(),
-    title: "Gran Turismo 7",
-    countdownDays: 0,
-    countdownHours: 0,
-    countdownMinutes: 0,
-    countdownSeconds: 0,
-    countdownDistance: 0,
-    releaseDate: "March 4, 2022 00:00:01",
-    delay: 1000,
-    isRunning: true
-  }
-]
-
 const Countdown = ()=>{ 
+  const listOfTitles = {
+    [nanoid()]: {
+      title: "Elex II",
+      releaseDate: "March 1, 2022 00:00:01",
+      delay: 1000,
+      isRunning: true
+    },
+    [nanoid()]: {
+      title: "Babylon's Fall",
+      releaseDate: "March 3, 2022 00:00:01",
+      delay: 1000,
+      isRunning: true
+    },
+    [nanoid()]: {
+      title: "Gran Turismo 7",
+      releaseDate: "March 4, 2022 00:00:01",
+      delay: 1000,
+      isRunning: true
+    }
+  };
   const [allGames, setAllGames] = useState(listOfTitles);
 
   function useInterval(callback, delay) {
@@ -60,35 +41,30 @@ const Countdown = ()=>{
         let id = setInterval(tick, delay);
         return () => clearInterval(id);
       }
-    }, [delay]);
+    }, [delay, allGames]);
   }
 
-  // Update the count down every 1 second
+  // // Update the count down every 1 second
   useInterval(() => {
-    
+    const resolvedGames = {};
 
-    allGames.forEach((game, index) => {
-
+    Object.keys(allGames).forEach((gameId) => {
+      const game = allGames[gameId];
       if (game.isRunning == false) return
+
       // Get today's date and time
       var now = new Date().getTime();
-
        // Set the date we're counting down to
-      var distance = new Date("January 1, 2022 00:00:01").getTime();
-      // var distance = new Date(game.releaseDate).getTime();
+      var distance = new Date(game.releaseDate).getTime();
 
       var realDistance = (distance - now);
-
-      // var distance = game.releaseDate
       
       var days = Math.floor(realDistance / (1000 * 60 * 60 * 24));
       var hours = Math.floor((realDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       var minutes = Math.floor((realDistance % (1000 * 60 * 60)) / (1000 * 60));
       var seconds = Math.floor((realDistance % (1000 * 60)) / 1000);
-    
-      // var game = "countdown" + (index + 1);
-
-      const updatedGame = {
+  
+      resolvedGames[gameId] = {
         ...game, 
         countdownDays: days,
         countdownHours: hours,
@@ -97,13 +73,9 @@ const Countdown = ()=>{
         countdownDistance: realDistance,
         ...realDistance <= 0 ? { delay: 0, isRunning: false, countdownDistance: -1 } : {}
       };
-      
-      setAllGames([
-        ...allGames.filter(g => g.id !== game.id),
-        updatedGame
-      ])
     });
-    
+
+    setAllGames(resolvedGames);  
   }, 1000);
 
   const handleclick = ()=>{
@@ -113,9 +85,16 @@ const Countdown = ()=>{
   return(
     <div>
       <button onClick={handleclick}>Click Me</button>
-      {allGames[0].countdownDistance < 0 ? <p>Sorry that's Expired</p> : (<p>{allGames[0].title}: {allGames[0].countdownDays}d {allGames[0].countdownHours}h {allGames[0].countdownMinutes}m {allGames[0].countdownSeconds}s</p>)}
-      {allGames[1].countdownDistance < 0 ? <p>Sorry that's Expired</p> : (<p>{allGames[1].title}: {allGames[1].countdownDays}d {allGames[1].countdownHours}h {allGames[1].countdownMinutes}m {allGames[1].countdownSeconds}s</p>)}
-      {allGames[2].countdownDistance < 0 ? <p>Sorry that's Expired</p> : (<p>{allGames[2].title}: {allGames[2].countdownDays}d {allGames[2].countdownHours}h {allGames[2].countdownMinutes}m {allGames[2].countdownSeconds}s</p>)}
+      {
+        Object.keys(allGames).map(gameId => {
+          const game = allGames[gameId];
+          return game?.countdownDistance < 0 
+            ? <p>Sorry that's Expired</p> 
+            : (
+              <p>{game.title}: {game.countdownDays}d {game.countdownHours}h {game.countdownMinutes}m {game.countdownSeconds}s</p>
+            )
+        })
+      }
     </div>
   )
 }
