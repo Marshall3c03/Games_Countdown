@@ -36,13 +36,15 @@ const Countdown = ()=>{
       title: "Grand Theft Auto V",
       releaseDate: "March 15, 2022 00:00:01",
       delay: 1000,
-      isRunning: true
+      isRunning: true,
+      image: "https://i.imgur.com/Lf4jUEm.png"
     },
     [nanoid()]: {
       title: "GhostWire: Tokyo",
       releaseDate: "March 25, 2022 00:00:01",
       delay: 1000,
-      isRunning: true
+      isRunning: true,
+      image: "https://i.imgur.com/cBGE6cT.png"
     },
     [nanoid()]: {
       title: "Tiny Tina's Wonderlands",
