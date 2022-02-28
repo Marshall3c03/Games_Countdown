@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { nanoid } from 'nanoid';
+import '../App.css'
 
 const Countdown = ()=>{ 
   const listOfTitles = {
@@ -7,25 +8,29 @@ const Countdown = ()=>{
       title: "Elex II",
       releaseDate: "March 1, 2022 00:00:01",
       delay: 1000,
-      isRunning: true
+      isRunning: true,
+      image: "https://i.imgur.com/A4IXzd0.png"
     },
     [nanoid()]: {
       title: "Babylon's Fall",
       releaseDate: "March 3, 2022 00:00:01",
       delay: 1000,
-      isRunning: true
+      isRunning: true,
+      image: "https://i.imgur.com/JsGyupZ.png"
     },
     [nanoid()]: {
       title: "Gran Turismo 7",
       releaseDate: "March 4, 2022 00:00:01",
       delay: 1000,
-      isRunning: true
+      isRunning: true,
+      image: "https://i.imgur.com/co8JZ8t.png"
     },
     [nanoid()]: {
       title: "WWE 2k22",
       releaseDate: "March 11, 2022 00:00:01",
       delay: 1000,
-      isRunning: true
+      isRunning: true,
+      image: "https://i.imgur.com/3Kq8Vtl.png"
     },
     [nanoid()]: {
       title: "Grand Theft Auto V",
@@ -142,8 +147,12 @@ const Countdown = ()=>{
           return game?.countdownDistance < 0 
             ? <p>Sorry that's Expired</p> 
             : (
-              <p>{game.title}: {game.countdownDays}d {game.countdownHours}h {game.countdownMinutes}m {game.countdownSeconds}s</p>
+              <div>
+                <p>{game.title}: {game.countdownDays}d {game.countdownHours}h {game.countdownMinutes}m {game.countdownSeconds}s</p>
+                <img className="game-banner" src={game?.image}/>
+              </div>
             )
+            
         })
       }
     </div>
